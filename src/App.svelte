@@ -1,30 +1,60 @@
 <script>
-	export let name;
+	import { onMount } from "svelte";
+	import Chart from "chart.js/auto/auto.js";
+
+	let portfolio;
+	const data = {
+		labels: ["Expenses", "Savings", "Investments"],
+		datasets: [
+			{
+				label: "My First Dataset",
+				data: [300, 50, 100],
+				backgroundColor: ["#7000e1", "#fc8800", "#00b0e8"],
+				// hoverOffset: 4,
+				borderWidth: 0,
+			},
+		],
+	};
+	const config = {
+		type: "doughnut",
+		data: data,
+		options: {
+			borderRadius: "30",
+			responsive: true,
+			cutout: "95%",
+			spacing: 2,
+			plugins: {
+				legend: {
+					position: "bottom",
+					display: true,
+					labels: {
+						usePointStyle: true,
+						padding: 20,
+						font: {
+							size: 14,
+						},
+					},
+				},
+				title: {
+					display: true,
+					text: "My Personal Portfolio",
+				},
+			},
+		},
+	};
+	onMount(() => {
+		const ctx = portfolio.getContext("2d");
+		// Initialize chart using default config set
+		var myChart = new Chart(ctx, config);
+	});
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<canvas bind:this={portfolio} width={400} height={400} />
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
+	canvas {
+		max-width: 50%;
+		max-height: 50%;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>
