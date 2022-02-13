@@ -55,6 +55,7 @@
 	canvas {
 		max-width: 50%;
 		max-height: 50%;
-		margin: 0 auto;
+		margin-left: auto;
+		margin-right: auto;
 	}
 </style>
